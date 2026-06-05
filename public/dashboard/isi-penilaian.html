@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isi Penilaian LKE - SI-AKSEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#800000',
+                        accent: '#1296b0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden font-sans">
+
+    <aside class="w-72 bg-white shadow-xl flex flex-col h-full z-20">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100">
+            <div class="text-2xl font-bold text-accent flex items-center gap-2">
+                <i class="fas fa-chart-line"></i> SI-AKSEL
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Umum</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-home w-5"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Dinas (Operator)</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-folder-open w-5"></i> Bank Dokumen
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-white bg-accent rounded-lg shadow-md mb-1">
+                    <i class="fas fa-edit w-5"></i> Isi Penilaian LKE
+                </a>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-100 p-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">O</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">Operator BRIDA</p>
+                    <p class="text-xs text-gray-500">Dinas / Instansi</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full relative">
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10">
+            <h1 class="text-xl font-semibold text-gray-800">Pengisian LKE AKIP - Tahun 2026</h1>
+            <div class="flex items-center gap-3">
+                <span class="text-sm text-gray-500">Progres Pengisian:</span>
+                <div class="w-32 bg-gray-200 rounded-full h-2.5">
+                    <div class="bg-accent h-2.5 rounded-full" style="width: 45%"></div>
+                </div>
+                <span class="text-sm font-bold text-accent">45%</span>
+            </div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
+            
+            <div class="mb-6 flex justify-between items-center">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Lembar Kerja Evaluasi</h2>
+                    <p class="text-gray-500 mt-1 text-sm">Tautkan dokumen dari Bank Dokumen dan isi penilaian mandiri Anda.</p>
+                </div>
+                <button onclick="openModal('submitModal')" class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md flex items-center gap-2">
+                    <i class="fas fa-paper-plane"></i> Ajukan ke Inspektorat
+                </button>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm w-1/2">Komponen / Sub-Komponen / Kriteria</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm w-1/4">Dokumen Ditautkan</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm text-center">Nilai Mandiri</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-100 border-b border-gray-200">
+                            <td colspan="4" class="px-6 py-3 font-bold text-gray-800">
+                                1. PERENCANAAN KINERJA <span class="text-xs text-gray-500 ml-2 font-normal">(Bobot Maks: 30)</span>
+                            </td>
+                        </tr>
+
+                        <tr class="bg-teal-50/30 border-b border-gray-100">
+                            <td colspan="4" class="px-6 py-2 pl-10 font-semibold text-gray-700 text-sm">
+                                1.a Dokumen Perencanaan kinerja telah tersedia
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 pl-14 align-top">
+                                <div class="flex gap-2">
+                                    <span class="text-sm font-bold text-gray-600">1.</span>
+                                    <div>
+                                        <p class="text-sm text-gray-800">Terdapat pedoman teknis perencanaan kinerja.</p>
+                                        <div class="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                            <p class="text-xs font-semibold text-accent mb-1"><i class="fas fa-info-circle"></i> Evidence yang diminta:</p>
+                                            <p class="text-xs text-gray-600 leading-relaxed">Perwal RKPD, Perwal IKU, SK IKU, PK PD, SOP Penyusunan Perjanjian Kinerja, Surat Edaran Wali Kota.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="space-y-2">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 border border-gray-200 text-xs font-medium text-gray-700 w-full">
+                                        <i class="fas fa-file-pdf text-red-500"></i> SE Walikota No 050.13...
+                                    </span>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-100 border border-gray-200 text-xs font-medium text-gray-700 w-full">
+                                        <i class="fas fa-file-pdf text-red-500"></i> SOP Penyusunan PK...
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <span class="px-3 py-1 bg-green-100 text-green-700 font-bold rounded-full text-sm">AA</span>
+                                <p class="text-xs text-gray-400 mt-1">Sesuai (100%)</p>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <button onclick="openModal('evalModal')" class="text-gray-500 hover:text-accent transition px-3 py-1.5 border border-gray-300 rounded hover:border-accent text-sm flex items-center gap-2 mx-auto bg-white">
+                                    <i class="fas fa-edit"></i> Ubah
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 pl-14 align-top">
+                                <div class="flex gap-2">
+                                    <span class="text-sm font-bold text-gray-600">2.</span>
+                                    <div>
+                                        <p class="text-sm text-gray-800">Terdapat dokumen perencanaan kinerja jangka panjang.</p>
+                                        <div class="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                            <p class="text-xs font-semibold text-accent mb-1"><i class="fas fa-info-circle"></i> Evidence yang diminta:</p>
+                                            <p class="text-xs text-gray-600 leading-relaxed">RPJPD Kota Makassar Tahun 2005-2025.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <span class="text-xs text-gray-400 italic">Belum ada dokumen tertaut</span>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <span class="text-xs text-gray-400 italic">-</span>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <button onclick="openModal('evalModal')" class="bg-accent hover:bg-teal-700 text-white transition px-4 py-1.5 rounded text-sm flex items-center gap-2 mx-auto shadow-sm">
+                                    <i class="fas fa-plus"></i> Lengkapi
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 pl-14 align-top">
+                                <div class="flex gap-2">
+                                    <span class="text-sm font-bold text-gray-600">3.</span>
+                                    <div>
+                                        <p class="text-sm text-gray-800">Terdapat dokumen perencanaan kinerja jangka menengah.</p>
+                                        <div class="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-100">
+                                            <p class="text-xs font-semibold text-accent mb-1"><i class="fas fa-info-circle"></i> Evidence yang diminta:</p>
+                                            <p class="text-xs text-gray-600 leading-relaxed">RPJMD Kota Makassar dan RENSTRA Perangkat Daerah Tahun 2021-2026.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <span class="text-xs text-gray-400 italic">Belum ada dokumen tertaut</span>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <span class="text-xs text-gray-400 italic">-</span>
+                            </td>
+                            <td class="px-6 py-4 align-top text-center">
+                                <button onclick="openModal('evalModal')" class="bg-accent hover:bg-teal-700 text-white transition px-4 py-1.5 rounded text-sm flex items-center gap-2 mx-auto shadow-sm">
+                                    <i class="fas fa-plus"></i> Lengkapi
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="evalModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxEval">
+            
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-800">Penilaian Mandiri: Kriteria 1.a.2</h3>
+                <button onclick="closeModal('evalModal', 'modalBoxEval')" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+                
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <p class="text-sm font-semibold text-gray-800 mb-1">Terdapat dokumen perencanaan kinerja jangka panjang.</p>
+                    <p class="text-xs text-gray-600">Evidence diminta: RPJPD Kota Makassar Tahun 2005-2025.</p>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-bold text-gray-800"><i class="fas fa-link text-accent mr-1"></i> Tautkan Evidence</label>
+                        <button onclick="alert('Ini akan membuka modal Unggah Baru jika file belum ada di bank')" class="text-xs text-maroon hover:underline font-semibold">+ Unggah Baru ke Bank Dokumen</button>
+                    </div>
+                    
+                    <div class="relative">
+                        <select class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-accent text-sm text-gray-700 appearance-none">
+                            <option value="">-- Pilih dokumen dari Bank Dokumen --</option>
+                            <option value="1">RPJPD Kota Makassar 2005-2025 Final.pdf</option>
+                            <option value="2">Peraturan Daerah Kota Makassar Nomor 5 Tahun 2021.pdf</option>
+                            <option value="3">Renstra Perangkat Daerah Tahun 2021-2026.pdf</option>
+                        </select>
+                        <i class="fas fa-chevron-down absolute right-4 top-3.5 text-gray-400 text-xs"></i>
+                    </div>
+                    
+                    <div class="mt-3 p-3 border border-dashed border-gray-300 rounded-lg bg-gray-50">
+                        <p class="text-xs text-gray-400 text-center mb-2">Dokumen yang telah ditautkan pada kriteria ini:</p>
+                        <div class="flex items-center justify-between bg-white border border-gray-200 p-2 rounded shadow-sm">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-file-pdf text-red-500 text-lg"></i>
+                                <div>
+                                    <p class="text-xs font-semibold text-gray-700">RPJPD Kota Makassar 2005-2025 Final.pdf</p>
+                                    <p class="text-[10px] text-gray-400">Dari Bank Dokumen</p>
+                                </div>
+                            </div>
+                            <button class="text-gray-400 hover:text-red-500"><i class="fas fa-times-circle"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-5">
+                    <label class="block text-sm font-bold text-gray-800 mb-2"><i class="fas fa-star-half-alt text-accent mr-1"></i> Predikat Penilaian Mandiri</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="predikat" class="peer sr-only" value="AA">
+                            <div class="text-center p-2 border border-gray-200 rounded-lg peer-checked:bg-green-50 peer-checked:border-green-500 peer-checked:text-green-700 hover:bg-gray-50 transition">
+                                <div class="font-bold text-sm">AA</div>
+                                <div class="text-[10px] text-gray-500 mt-1">100% (Inovatif)</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="predikat" class="peer sr-only" value="A">
+                            <div class="text-center p-2 border border-gray-200 rounded-lg peer-checked:bg-teal-50 peer-checked:border-accent peer-checked:text-accent hover:bg-gray-50 transition">
+                                <div class="font-bold text-sm">A</div>
+                                <div class="text-[10px] text-gray-500 mt-1">90% (Sangat Baik)</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="predikat" class="peer sr-only" value="BB">
+                            <div class="text-center p-2 border border-gray-200 rounded-lg peer-checked:bg-teal-50 peer-checked:border-accent peer-checked:text-accent hover:bg-gray-50 transition">
+                                <div class="font-bold text-sm">BB</div>
+                                <div class="text-[10px] text-gray-500 mt-1">80% (Baik)</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="predikat" class="peer sr-only" value="B">
+                            <div class="text-center p-2 border border-gray-200 rounded-lg peer-checked:bg-yellow-50 peer-checked:border-yellow-500 peer-checked:text-yellow-700 hover:bg-gray-50 transition">
+                                <div class="font-bold text-sm">B</div>
+                                <div class="text-[10px] text-gray-500 mt-1">70% (Cukup)</div>
+                            </div>
+                        </label>
+                    </div>
+                    <p class="text-[11px] text-gray-400 mt-2"><i class="fas fa-info-circle"></i> Nilai akhir (angka) akan dihitung otomatis oleh sistem berdasarkan bobot kriteria.</p>
+                </div>
+
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
+                <button onclick="closeModal('evalModal', 'modalBoxEval')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition">
+                    Batal
+                </button>
+                <button onclick="closeModal('evalModal', 'modalBoxEval')" class="bg-accent hover:bg-teal-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition shadow-md">
+                    Simpan Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxSubmit">
+            <div class="p-8 text-center">
+                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-paper-plane text-2xl text-maroon"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Ajukan Evaluasi?</h3>
+                <p class="text-sm text-gray-500 mb-6">Pastikan semua dokumen evidence telah tertaut dan predikat sudah diisi. Anda tidak dapat mengubah data setelah diajukan ke Inspektorat.</p>
+                
+                <div class="flex justify-center gap-3">
+                    <button onclick="closeModal('submitModal', 'modalBoxSubmit')" class="px-5 py-2.5 rounded-lg text-sm font-medium text-gray-600 border border-gray-300 hover:bg-gray-50 transition">
+                        Kembali
+                    </button>
+                    <button onclick="closeModal('submitModal', 'modalBoxSubmit')" class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md">
+                        Ya, Ajukan Sekarang
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            // Pilih box animasi berdasarkan ID modal yang dibuka
+            const boxId = modalId === 'evalModal' ? 'modalBoxEval' : 'modalBoxSubmit';
+            const modalBox = document.getElementById(boxId);
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalId, boxId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById(boxId);
+            
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>

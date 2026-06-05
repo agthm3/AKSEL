@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Evaluasi - SI-AKSEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#800000',
+                        accent: '#1296b0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden font-sans">
+
+    <aside class="w-72 bg-white shadow-xl flex flex-col h-full z-20">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100">
+            <div class="text-2xl font-bold text-accent flex items-center gap-2">
+                <i class="fas fa-chart-line"></i> SI-AKSEL
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Umum</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-home w-5"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Dinas (Operator)</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-folder-open w-5"></i> Bank Dokumen
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-edit w-5"></i> Isi Penilaian LKE
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-white bg-accent rounded-lg shadow-md mb-1">
+                    <i class="fas fa-history w-5"></i> Riwayat Evaluasi
+                </a>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-100 p-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">O</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">Operator BRIDA</p>
+                    <p class="text-xs text-gray-500">Dinas / Instansi</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full relative">
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10">
+            <h1 class="text-xl font-semibold text-gray-800">Riwayat Evaluasi LKE</h1>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
+            
+            <div class="mb-6 flex justify-between items-end">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Rekam Jejak Penilaian</h2>
+                    <p class="text-gray-500 mt-1 text-sm">Lihat hasil akhir evaluasi AKIP instansi Anda dari tahun ke tahun.</p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 border-b border-gray-200">
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm">Tahun Evaluasi</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm">Tanggal Pengajuan</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm">Nilai Akhir</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm">Predikat</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm">Status</th>
+                            <th class="px-6 py-4 font-semibold text-gray-600 text-sm text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-700">
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-bold text-gray-800">2026</td>
+                            <td class="px-6 py-4">05 Juni 2026</td>
+                            <td class="px-6 py-4 italic text-gray-400">Belum Keluar</td>
+                            <td class="px-6 py-4 italic text-gray-400">-</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-yellow-100 text-yellow-700 text-xs font-semibold">Menunggu Diperiksa</span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button onclick="openModal('detailModal')" class="text-accent hover:text-blue-800 transition px-3 py-1.5 border border-gray-300 rounded hover:border-accent text-sm bg-white" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                                <button onclick="openModal('printModal')" class="text-gray-400 cursor-not-allowed px-3 py-1.5 border border-gray-200 rounded text-sm bg-gray-50" title="Cetak Belum Tersedia" disabled>
+                                    <i class="fas fa-print"></i> Cetak
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-bold text-gray-800">2025</td>
+                            <td class="px-6 py-4">12 Maret 2025</td>
+                            <td class="px-6 py-4 font-bold text-gray-800">79.95</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 bg-teal-50 text-accent font-bold rounded-full text-sm border border-teal-100">BB</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Selesai Evaluasi</span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button onclick="openModal('detailModal')" class="text-accent hover:text-blue-800 transition px-3 py-1.5 border border-gray-300 rounded hover:border-accent text-sm bg-white" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                                <button onclick="openModal('printModal')" class="text-maroon hover:text-red-900 transition px-3 py-1.5 border border-red-200 rounded hover:border-maroon text-sm bg-red-50" title="Cetak Laporan">
+                                    <i class="fas fa-print"></i> Cetak
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr class="border-b border-gray-100 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 font-bold text-gray-800">2024</td>
+                            <td class="px-6 py-4">20 Maret 2024</td>
+                            <td class="px-6 py-4 font-bold text-gray-800">72.50</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 bg-yellow-50 text-yellow-600 font-bold rounded-full text-sm border border-yellow-100">B</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold">Selesai Evaluasi</span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button onclick="openModal('detailModal')" class="text-accent hover:text-blue-800 transition px-3 py-1.5 border border-gray-300 rounded hover:border-accent text-sm bg-white" title="Lihat Detail">
+                                    <i class="fas fa-eye"></i> Detail
+                                </button>
+                                <button onclick="openModal('printModal')" class="text-maroon hover:text-red-900 transition px-3 py-1.5 border border-red-200 rounded hover:border-maroon text-sm bg-red-50" title="Cetak Laporan">
+                                    <i class="fas fa-print"></i> Cetak
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-3xl overflow-hidden transform scale-95 transition-transform duration-300 flex flex-col max-h-[85vh]" id="modalBoxDetail">
+            
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-chart-bar text-accent mr-2"></i> Detail Hasil Penilaian Tahun 2025</h3>
+                <button onclick="closeModal('detailModal', 'modalBoxDetail')" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto flex-1 space-y-6">
+                
+                <div class="flex items-center justify-between bg-teal-50 p-4 rounded-xl border border-teal-100">
+                    <div>
+                        <p class="text-sm text-gray-500 font-medium">Nilai Akuntabilitas Kinerja</p>
+                        <h2 class="text-3xl font-bold text-gray-800 mt-1">79.95</h2>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm text-gray-500 font-medium">Predikat</p>
+                        <span class="inline-block mt-1 px-4 py-1 bg-white text-accent font-bold rounded-full text-xl border border-teal-200 shadow-sm">BB</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-gray-800 mb-3 border-b border-gray-200 pb-2">Rincian per Komponen</h4>
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="text-gray-500 bg-gray-50">
+                                <th class="py-2 px-3 font-medium rounded-tl-lg">Komponen</th>
+                                <th class="py-2 px-3 font-medium text-center">Bobot Maks.</th>
+                                <th class="py-2 px-3 font-medium text-center rounded-tr-lg">Nilai Diperoleh</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 divide-y divide-gray-100">
+                            <tr>
+                                <td class="py-3 px-3">1. Perencanaan Kinerja</td>
+                                <td class="py-3 px-3 text-center">30.0</td>
+                                <td class="py-3 px-3 text-center font-bold text-accent">25.50</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3">2. Pengukuran Kinerja</td>
+                                <td class="py-3 px-3 text-center">30.0</td>
+                                <td class="py-3 px-3 text-center font-bold text-accent">24.60</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3">3. Pelaporan Kinerja</td>
+                                <td class="py-3 px-3 text-center">15.0</td>
+                                <td class="py-3 px-3 text-center font-bold text-accent">11.85</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-3">4. Evaluasi Akuntabilitas Kinerja Internal</td>
+                                <td class="py-3 px-3 text-center">25.0</td>
+                                <td class="py-3 px-3 text-center font-bold text-accent">18.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-100">
+                        <h4 class="font-bold text-yellow-800 text-sm mb-2"><i class="fas fa-clipboard-list mr-1"></i> Catatan Inspektorat</h4>
+                        <ul class="text-xs text-yellow-700 list-disc list-inside space-y-1">
+                            <li>Dokumen pelaporan kinerja perlu melampirkan analisis yang lebih mendalam terkait capaian IKU.</li>
+                            <li>Terdapat inkonsistensi penomoran pada dokumen Perjanjian Kinerja perubahan.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+                        <h4 class="font-bold text-blue-800 text-sm mb-2"><i class="fas fa-lightbulb mr-1"></i> Rekomendasi Perbaikan</h4>
+                        <ul class="text-xs text-blue-700 list-disc list-inside space-y-1">
+                            <li>Lakukan penyempurnaan format pelaporan sesuai SE Walikota terbaru.</li>
+                            <li>Tingkatkan pemanfaatan aplikasi e-Kinerja untuk pemantauan bulanan.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-100 flex justify-end bg-gray-50">
+                <button onclick="closeModal('detailModal', 'modalBoxDetail')" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-5 py-2 rounded-lg text-sm font-medium transition">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="printModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxPrint">
+            <div class="p-6 text-center">
+                <div class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100">
+                    <i class="fas fa-file-pdf text-2xl text-maroon"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Cetak Laporan (LHE)</h3>
+                <p class="text-sm text-gray-500 mb-6">Sistem akan men-generate Laporan Hasil Evaluasi Tahun 2025 dalam format PDF.</p>
+                
+                <div class="flex justify-center gap-3">
+                    <button onclick="closeModal('printModal', 'modalBoxPrint')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 border border-gray-300 hover:bg-gray-50 transition w-full">
+                        Batal
+                    </button>
+                    <button onclick="closeModal('printModal', 'modalBoxPrint')" class="bg-maroon hover:bg-red-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition shadow-md w-full flex justify-center items-center gap-2">
+                        <i class="fas fa-download"></i> Unduh PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const boxId = modalId === 'detailModal' ? 'modalBoxDetail' : 'modalBoxPrint';
+            const modalBox = document.getElementById(boxId);
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalId, boxId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById(boxId);
+            
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>

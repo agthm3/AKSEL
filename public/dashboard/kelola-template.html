@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Template LKE - SI-AKSEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#800000',
+                        accent: '#1296b0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden font-sans">
+
+    <!-- SIDEBAR -->
+    <aside class="w-72 bg-white shadow-xl flex flex-col h-full z-20">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100">
+            <div class="text-2xl font-bold text-accent flex items-center gap-2">
+                <i class="fas fa-chart-line"></i> SI-AKSEL
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Umum</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-home w-5"></i> Dashboard
+                </a>
+            </div>
+
+            <!-- Menu Dinas -->
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Dinas (Operator)</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-folder-open w-5"></i> Bank Dokumen
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-edit w-5"></i> Isi Penilaian LKE
+                </a>
+            </div>
+
+            <!-- MENU INSPEKTORAT (AKTIF) -->
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Inspektorat</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-file-signature w-5"></i> Evaluasi Instansi
+                </a>
+                <!-- Menu ini sekarang aktif -->
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-white bg-accent rounded-lg shadow-md mb-1">
+                    <i class="fas fa-layer-group w-5"></i> Kelola Template LKE
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition">
+                    <i class="fas fa-chart-bar w-5"></i> Rekapitulasi Nilai Akhir
+                </a>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-100 p-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-maroon flex items-center justify-center text-white font-bold">F</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">Fadehl Thristansyah</p>
+                    <p class="text-xs text-gray-500">Admin Inspektorat</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col h-full relative">
+        <!-- HEADER -->
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10">
+            <h1 class="text-xl font-semibold text-gray-800">Manajemen Template LKE</h1>
+            <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-bold border border-gray-200 transition">
+                <i class="fas fa-copy mr-1"></i> Duplikasi Template Tahun Lalu
+            </button>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
+            
+            <div class="mb-6 flex justify-between items-end">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Struktur LKE Tahun 2026</h2>
+                    <p class="text-gray-500 mt-1 text-sm">Susun komponen, sub-komponen, dan tentukan daftar evidence yang disyaratkan.</p>
+                </div>
+                <div class="flex gap-2">
+                    <select class="px-4 py-2.5 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-accent text-sm font-bold text-gray-700">
+                        <option>Tahun 2026 (Aktif)</option>
+                        <option>Tahun 2025 (Arsip)</option>
+                    </select>
+                    <button class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md flex items-center gap-2">
+                        <i class="fas fa-plus-circle"></i> Tambah Komponen Utama
+                    </button>
+                </div>
+            </div>
+
+            <!-- Struktur Berjenjang / Hierarki -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-8">
+                
+                <!-- LEVEL 1: KOMPONEN 1 -->
+                <div class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center border-b border-gray-700">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-gray-600 px-3 py-1 rounded text-sm font-bold">1</span>
+                        <h3 class="text-lg font-bold">PERENCANAAN KINERJA</h3>
+                        <span class="text-xs bg-accent text-white px-2 py-0.5 rounded-full ml-2">Bobot: 30.00</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="text-gray-300 hover:text-white transition" title="Edit Komponen"><i class="fas fa-edit"></i></button>
+                        <button class="text-gray-300 hover:text-white transition" title="Tambah Sub-Komponen"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+
+                <!-- LEVEL 2: SUB-KOMPONEN 1.a -->
+                <div class="bg-teal-50 px-6 py-3 border-b border-gray-200 flex justify-between items-center pl-12">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-bold text-accent">1.a</span>
+                        <h4 class="text-sm font-semibold text-gray-800">Dokumen Perencanaan kinerja telah tersedia</h4>
+                    </div>
+                    <div class="flex gap-3 text-sm">
+                        <button class="text-gray-500 hover:text-accent transition"><i class="fas fa-edit"></i> Edit</button>
+                        <button onclick="openModal('kriteriaModal')" class="text-maroon font-semibold hover:underline transition"><i class="fas fa-plus text-xs"></i> Tambah Kriteria</button>
+                    </div>
+                </div>
+
+                <!-- LEVEL 3: DAFTAR KRITERIA (Anak dari 1.a) -->
+                <div class="divide-y divide-gray-100">
+                    
+                    <!-- Kriteria 1 -->
+                    <div class="px-6 py-4 pl-20 hover:bg-gray-50 transition flex justify-between items-start group">
+                        <div class="flex-1 pr-6">
+                            <div class="flex gap-2 mb-2">
+                                <span class="text-sm font-bold text-gray-500 w-6">1.</span>
+                                <p class="text-sm font-medium text-gray-800 leading-snug">Terdapat pedoman teknis perencanaan kinerja.</p>
+                            </div>
+                            <div class="ml-8 p-3 bg-blue-50/50 rounded-lg border border-blue-100 inline-block w-full">
+                                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">Evidence yang Diminta:</p>
+                                <p class="text-xs text-gray-700">Perwal RKPD, Perwal IKU, SK IKU, PK PD, SOP Penyusunan Perjanjian Kinerja, Surat Edaran Wali Kota.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="openModal('kriteriaModal')" class="p-2 text-gray-400 hover:text-accent bg-white rounded shadow-sm border border-gray-200"><i class="fas fa-edit"></i></button>
+                            <button class="p-2 text-gray-400 hover:text-red-500 bg-white rounded shadow-sm border border-gray-200"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Kriteria 2 -->
+                    <div class="px-6 py-4 pl-20 hover:bg-gray-50 transition flex justify-between items-start group">
+                        <div class="flex-1 pr-6">
+                            <div class="flex gap-2 mb-2">
+                                <span class="text-sm font-bold text-gray-500 w-6">2.</span>
+                                <p class="text-sm font-medium text-gray-800 leading-snug">Terdapat dokumen perencanaan kinerja jangka panjang.</p>
+                            </div>
+                            <div class="ml-8 p-3 bg-blue-50/50 rounded-lg border border-blue-100 inline-block w-full">
+                                <p class="text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1">Evidence yang Diminta:</p>
+                                <p class="text-xs text-gray-700">RPJPD Kota Makassar Tahun 2005-2025.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="openModal('kriteriaModal')" class="p-2 text-gray-400 hover:text-accent bg-white rounded shadow-sm border border-gray-200"><i class="fas fa-edit"></i></button>
+                            <button class="p-2 text-gray-400 hover:text-red-500 bg-white rounded shadow-sm border border-gray-200"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LEVEL 2: SUB-KOMPONEN 1.b (Contoh kosong) -->
+                <div class="bg-teal-50 px-6 py-3 border-y border-gray-200 flex justify-between items-center pl-12 mt-4">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm font-bold text-accent">1.b</span>
+                        <h4 class="text-sm font-semibold text-gray-800">Dokumen Perencanaan kinerja telah memenuhi standar</h4>
+                    </div>
+                    <div class="flex gap-3 text-sm">
+                        <button class="text-gray-500 hover:text-accent transition"><i class="fas fa-edit"></i> Edit</button>
+                        <button onclick="openModal('kriteriaModal')" class="text-maroon font-semibold hover:underline transition"><i class="fas fa-plus text-xs"></i> Tambah Kriteria</button>
+                    </div>
+                </div>
+                <div class="px-6 py-4 pl-20 text-sm text-gray-400 italic text-center bg-white">
+                    Belum ada kriteria di bawah sub-komponen ini.
+                </div>
+
+                <!-- LEVEL 1: KOMPONEN 2 (Tertutup/Collapsed dummy) -->
+                <div class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center border-b border-gray-700 mt-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-gray-600 px-3 py-1 rounded text-sm font-bold">2</span>
+                        <h3 class="text-lg font-bold">PENGUKURAN KINERJA</h3>
+                        <span class="text-xs bg-accent text-white px-2 py-0.5 rounded-full ml-2">Bobot: 30.00</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button class="text-gray-300 hover:text-white transition px-2"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL POP-UP: TAMBAH/EDIT KRITERIA -->
+    <!-- ========================================== -->
+    <div id="kriteriaModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <!-- Modal Content -->
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxKriteria">
+            
+            <!-- Modal Header -->
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-layer-group text-accent mr-2"></i> Form Data Kriteria</h3>
+                <button onclick="closeModal('kriteriaModal')" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Form) -->
+            <div class="p-6 space-y-5">
+                
+                <div class="bg-teal-50 text-accent text-xs font-semibold px-4 py-2 rounded-lg border border-teal-100">
+                    Induk: 1. PERENCANAAN KINERJA > 1.a Dokumen Perencanaan kinerja telah tersedia
+                </div>
+
+                <!-- Input Nomor Kriteria -->
+                <div class="flex gap-4">
+                    <div class="w-1/4">
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nomor Urut <span class="text-red-500">*</span></label>
+                        <input type="number" value="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent text-sm bg-gray-50">
+                    </div>
+                </div>
+
+                <!-- Input Deskripsi Kriteria -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Deskripsi Kriteria <span class="text-red-500">*</span></label>
+                    <textarea rows="2" placeholder="Tuliskan pernyataan atau standar kriteria di sini..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm text-gray-800"></textarea>
+                </div>
+
+                <!-- Input Daftar Evidence -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1">Daftar Evidence yang Diminta <span class="text-red-500">*</span></label>
+                    <textarea rows="3" placeholder="Contoh: 1. SK Walikota, 2. Dokumen RPJMD..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm text-gray-800"></textarea>
+                    <p class="text-xs text-gray-400 mt-1"><i class="fas fa-info-circle"></i> Teks ini akan dibaca oleh operator dinas sebagai panduan unggah dokumen.</p>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
+                <button onclick="closeModal('kriteriaModal')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition">
+                    Batal
+                </button>
+                <button onclick="closeModal('kriteriaModal')" class="bg-accent hover:bg-teal-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition shadow-md">
+                    Simpan Kriteria
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT UNTUK MODAL -->
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById('modalBoxKriteria');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById('modalBoxKriteria');
+            
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>

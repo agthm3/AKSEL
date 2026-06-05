@@ -6,10 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Institution;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -20,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'institution_id', // Menambahkan institution_id sebagai fillable
+        
     ];
 
     /**
@@ -43,5 +47,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function originInstitution()
+    {
+        return $this->belongsTo(Institution::class, 'institution_id');
+    }
+
+    // 2. Relasi Instansi Binaan (Khusus untuk role operator_inspektorat)
+    // Relasi Many-to-Many menggunakan tabel pivot
+    public function binaanInstitutions()
+    {
+        return $this->belongsToMany(Institution::class, 'evaluator_assignments', 'user_id', 'institution_id');
     }
 }

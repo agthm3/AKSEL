@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Dokumen - SI-AKSEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: '#800000',
+                        accent: '#1296b0',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 flex h-screen overflow-hidden font-sans">
+
+    <aside class="w-72 bg-white shadow-xl flex flex-col h-full z-20">
+        <div class="h-16 flex items-center px-6 border-b border-gray-100">
+            <div class="text-2xl font-bold text-accent flex items-center gap-2">
+                <i class="fas fa-chart-line"></i> SI-AKSEL
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-6">
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Umum</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-home w-5"></i> Dashboard
+                </a>
+            </div>
+
+            <div>
+                <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Dinas (Operator)</p>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-white bg-accent rounded-lg shadow-md mb-1">
+                    <i class="fas fa-folder-open w-5"></i> Bank Dokumen
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                    <i class="fas fa-edit w-5"></i> Isi Penilaian LKE
+                </a>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-100 p-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-bold">O</div>
+                <div>
+                    <p class="text-sm font-semibold text-gray-800">Operator BRIDA</p>
+                    <p class="text-xs text-gray-500">Dinas / Instansi</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col h-full relative">
+        <header class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10">
+            <h1 class="text-xl font-semibold text-gray-800">Bank Dokumen Evidence</h1>
+        </header>
+
+        <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
+            
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800">Dokumen Instansi</h2>
+                    <p class="text-gray-500 mt-1 text-sm">Pusat penyimpanan satu pintu untuk semua evidence LKE Anda.</p>
+                </div>
+                <button onclick="openModal('uploadModal')" class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md flex items-center gap-2">
+                    <i class="fas fa-cloud-upload-alt"></i> Unggah Dokumen Baru
+                </button>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl shadow-sm mb-6 flex gap-4">
+                <div class="flex-1 relative">
+                    <i class="fas fa-search absolute left-4 top-3 text-gray-400"></i>
+                    <input type="text" placeholder="Cari nama dokumen atau nomor surat..." class="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm">
+                </div>
+                <select class="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-accent text-sm text-gray-600">
+                    <option>Semua Tahun</option>
+                    <option>2026</option>
+                    <option>2025</option>
+                    <option>2024</option>
+                </select>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-sm border-b border-gray-100">
+                            <th class="px-6 py-4 font-medium w-12">No</th>
+                            <th class="px-6 py-4 font-medium">Nama Dokumen</th>
+                            <th class="px-6 py-4 font-medium">Tahun</th>
+                            <th class="px-6 py-4 font-medium">Status Penggunaan</th>
+                            <th class="px-6 py-4 font-medium text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-gray-700">
+                        <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-gray-500">1</td>
+                            <td class="px-6 py-4">
+                                <div class="font-medium text-gray-800">Peraturan Daerah Kota Makassar Nomor 5 Tahun 2021</div>
+                                <div class="text-xs text-gray-400 mt-1"><i class="fas fa-file-pdf text-red-500 mr-1"></i> PDF • 2.4 MB • Diunggah 12 Mar 2026</div>
+                            </td>
+                            <td class="px-6 py-4">2021</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-blue-50 text-accent text-xs font-semibold border border-blue-100">
+                                    <i class="fas fa-link mr-1"></i> Ditautkan di 3 Kriteria
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button class="text-gray-400 hover:text-accent transition" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>
+                                <button class="text-gray-400 hover:text-gray-800 transition" title="Edit Data"><i class="fas fa-edit"></i></button>
+                                <button class="text-gray-400 hover:text-red-600 transition" title="Hapus Dokumen"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-gray-500">2</td>
+                            <td class="px-6 py-4">
+                                <div class="font-medium text-gray-800">Renstra Perangkat Daerah Tahun 2021-2026</div>
+                                <div class="text-xs text-gray-400 mt-1"><i class="fas fa-file-pdf text-red-500 mr-1"></i> PDF • 5.1 MB • Diunggah 10 Mar 2026</div>
+                            </td>
+                            <td class="px-6 py-4">2021</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-blue-50 text-accent text-xs font-semibold border border-blue-100">
+                                    <i class="fas fa-link mr-1"></i> Ditautkan di 1 Kriteria
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button class="text-gray-400 hover:text-accent transition" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>
+                                <button class="text-gray-400 hover:text-gray-800 transition" title="Edit Data"><i class="fas fa-edit"></i></button>
+                                <button class="text-gray-400 hover:text-red-600 transition" title="Hapus Dokumen"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition">
+                            <td class="px-6 py-4 text-gray-500">3</td>
+                            <td class="px-6 py-4">
+                                <div class="font-medium text-gray-800">Laporan Monitoring dan Evaluasi Rencana Aksi Triwulan I</div>
+                                <div class="text-xs text-gray-400 mt-1"><i class="fas fa-file-pdf text-red-500 mr-1"></i> PDF • 1.2 MB • Diunggah 15 Mar 2026</div>
+                            </td>
+                            <td class="px-6 py-4">2024</td>
+                            <td class="px-6 py-4">
+                                <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-500 text-xs font-medium border border-gray-200">
+                                    Belum ditautkan
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button class="text-gray-400 hover:text-accent transition" title="Lihat Dokumen"><i class="fas fa-eye"></i></button>
+                                <button class="text-gray-400 hover:text-gray-800 transition" title="Edit Data"><i class="fas fa-edit"></i></button>
+                                <button class="text-gray-400 hover:text-red-600 transition" title="Hapus Dokumen"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="flex justify-between items-center mt-6">
+                <p class="text-sm text-gray-500">Menampilkan 1 hingga 3 dari 45 dokumen</p>
+                <div class="flex gap-1">
+                    <button class="px-3 py-1 border border-gray-200 rounded text-gray-400 hover:bg-gray-50 disabled"><i class="fas fa-chevron-left"></i></button>
+                    <button class="px-3 py-1 bg-accent text-white rounded">1</button>
+                    <button class="px-3 py-1 border border-gray-200 rounded text-gray-600 hover:bg-gray-50">2</button>
+                    <button class="px-3 py-1 border border-gray-200 rounded text-gray-600 hover:bg-gray-50">3</button>
+                    <button class="px-3 py-1 border border-gray-200 rounded text-gray-600 hover:bg-gray-50"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="uploadModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300" id="modalBox">
+            
+            <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-cloud-upload-alt text-accent mr-2"></i> Unggah Dokumen Evidence</h3>
+                <button onclick="closeModal('uploadModal')" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Dokumen <span class="text-red-500">*</span></label>
+                    <input type="text" placeholder="Cth: Perda Nomor 5 Tahun 2021 tentang RPJMD" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm">
+                    <p class="text-xs text-gray-400 mt-1">Gunakan nama yang jelas agar mudah dicari saat mengisi LKE.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Tahun Terbit Dokumen <span class="text-red-500">*</span></label>
+                    <input type="number" placeholder="2024" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">File Dokumen (PDF) <span class="text-red-500">*</span></label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-accent hover:bg-teal-50 transition cursor-pointer">
+                        <i class="fas fa-file-upload text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-sm text-gray-600 font-medium">Klik untuk memilih file atau seret file ke sini</p>
+                        <p class="text-xs text-gray-400 mt-1">Maksimal ukuran file 10MB. Format didukung: .pdf</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
+                <button onclick="closeModal('uploadModal')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition">
+                    Batal
+                </button>
+                <button onclick="closeModal('uploadModal')" class="bg-maroon hover:bg-red-900 text-white px-6 py-2 rounded-lg text-sm font-medium transition shadow-md">
+                    Simpan & Unggah
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById('modalBox');
+            modal.classList.remove('hidden');
+            // Sedikit timeout untuk animasi scale
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const modalBox = document.getElementById('modalBox');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            // Tunggu animasi selesai baru disembunyikan
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+
+</body>
+</html>
