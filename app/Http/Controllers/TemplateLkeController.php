@@ -49,4 +49,43 @@ class TemplateLkeController extends Controller
         LkeCriteria::create($request->all());
         return back()->with('success', 'Kriteria Evidence berhasil ditambahkan!');
     }
+
+    public function destroyCriteria($id)
+    {
+        // Pastikan hanya role yang berwenang yang bisa mengeksekusi (Double Security)
+        if (!auth()->user()->hasAnyRole(['super_admin', 'admin', 'inspektorat'])) {
+            abort(403, 'Anda tidak memiliki hak akses untuk menghapus kriteria ini.');
+        }
+
+        $criteria = LkeCriteria::findOrFail($id);
+        
+        // Hapus kriteria (Relasi cascade di database akan otomatis menghapus tautan pivot jika ada)
+        $criteria->delete();
+
+        return back()->with('success', 'Kriteria evidence berhasil dihapus dari struktur LKE!');
+    }
+
+    public function destroyComponent($id)
+    {
+        if (!auth()->user()->hasAnyRole(['super_admin', 'admin', 'inspektorat'])) {
+            abort(403);
+        }
+
+        $component = LkeComponent::findOrFail($id);
+        $component->delete(); // Otomatis menghapus Sub & Kriteria di bawahnya karena Cascade
+
+        return back()->with('success', 'Komponen utama beserta seluruh sub-komponen dan kriteria di bawahnya berhasil dihapus!');
+    }
+
+    public function destroySubComponent($id)
+    {
+        if (!auth()->user()->hasAnyRole(['super_admin', 'admin', 'inspektorat'])) {
+            abort(403);
+        }
+
+        $subComponent = LkeSubComponent::findOrFail($id);
+        $subComponent->delete(); // Otomatis menghapus Kriteria di bawahnya karena Cascade
+
+        return back()->with('success', 'Sub-komponen beserta seluruh kriteria di bawahnya berhasil dihapus!');
+    }
 }

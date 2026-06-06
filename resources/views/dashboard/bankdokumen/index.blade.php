@@ -6,8 +6,7 @@
             <h1 class="text-xl font-semibold text-gray-800">Bank Dokumen Evidence</h1>
         </header>
 
-<main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
-            
+        <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
                 @if(session('success'))
                     <div class="mb-4 px-4 py-3 bg-green-100 border border-green-200 text-green-700 rounded-lg text-sm font-bold flex justify-between items-center">
                         <span><i class="fas fa-check-circle mr-2"></i> {{ session('success') }}</span>

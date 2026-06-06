@@ -45,20 +45,20 @@
                 <a href="{{ route('dashboard.isipenilaianlke.index') }}" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
                     <i class="fas fa-edit w-5"></i> Isi Penilaian LKE
                 </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition">
+                <a href="{{ route('dashboard.riwayatevaluasi.index') }}" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition">
                     <i class="fas fa-history w-5"></i> Riwayat Evaluasi
                 </a>
             </div>
 
             <div>
                 <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu Inspektorat</p>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
+                <a href="{{ route('dashboard.evaluasiinstansi.index') }}" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
                     <i class="fas fa-file-signature w-5"></i> Evaluasi Instansi (Pemeriksaan)
                 </a>
                 <a href="{{ route('dashboard.kelolatemplatelke.index') }}" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition mb-1">
                     <i class="fas fa-layer-group w-5"></i> Kelola Template LKE
                 </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition">
+                <a href="{{ route('dashboard.rekapitulasinilaiakhir.index') }}" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:text-maroon hover:bg-red-50 rounded-lg transition">
                     <i class="fas fa-chart-bar w-5"></i> Rekapitulasi Nilai Akhir
                 </a>
             </div>

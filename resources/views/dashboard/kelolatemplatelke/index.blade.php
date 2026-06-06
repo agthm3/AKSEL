@@ -1,7 +1,6 @@
 @extends('layouts.dashboard')
 
 @section('content')
-
     <!-- MAIN CONTENT -->
     <div class="flex-1 flex flex-col h-full relative">
         <!-- HEADER -->
@@ -15,13 +14,6 @@
         <!-- PAGE CONTENT -->
         <main class="flex-1 overflow-y-auto p-8 bg-gray-50 relative">
             
-            @if(session('success'))
-                <div class="mb-4 px-4 py-3 bg-green-100 border border-green-200 text-green-700 rounded-lg text-sm font-bold flex justify-between items-center">
-                    <span><i class="fas fa-check-circle mr-2"></i> {{ session('success') }}</span>
-                    <button onclick="this.parentElement.style.display='none'"><i class="fas fa-times"></i></button>
-                </div>
-            @endif
-
             <div class="mb-6 flex justify-between items-end">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">Struktur LKE Tahun 2026</h2>
@@ -32,10 +24,11 @@
                         <option>Tahun 2026 (Aktif)</option>
                         <option>Tahun 2025 (Arsip)</option>
                     </select>
-                    <!-- Tombol Tambah Komponen Utama -->
-                    <button onclick="openModal('componentModal', 'modalBoxComponent')" class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md flex items-center gap-2">
-                        <i class="fas fa-plus-circle"></i> Tambah Komponen Utama
-                    </button>
+                    @hasanyrole('super_admin|admin|inspektorat')
+                        <button onclick="openModal('componentModal', 'modalBoxComponent')" class="bg-maroon hover:bg-red-900 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition shadow-md flex items-center gap-2">
+                            <i class="fas fa-plus-circle"></i> Tambah Komponen Utama
+                        </button>
+                    @endhasanyrole
                 </div>
             </div>
 
@@ -44,26 +37,50 @@
                 
                 @forelse($components as $component)
                     <!-- LEVEL 1: KOMPONEN -->
-                    <div class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center border-b border-gray-700">
+                    <div class="bg-gray-800 text-white px-6 py-4 flex justify-between items-center border-b border-gray-700 group/comp">
                         <div class="flex items-center gap-3">
                             <span class="bg-gray-600 px-3 py-1 rounded text-sm font-bold">{{ $component->component_number }}</span>
                             <h3 class="text-lg font-bold">{{ $component->name }}</h3>
                             <span class="text-xs bg-accent text-white px-2 py-0.5 rounded-full ml-2">Bobot: {{ $component->weight }}</span>
                         </div>
-                        <div class="flex gap-2">
-                            <button onclick="openModal('subComponentModal-{{ $component->id }}', 'modalBoxSub-{{ $component->id }}')" class="text-gray-300 hover:text-white transition bg-gray-700 px-3 py-1 rounded text-sm"><i class="fas fa-plus mr-1"></i> Sub-Komponen</button>
+                        <div class="flex items-center gap-3">
+                            @hasanyrole('super_admin|admin|inspektorat')
+                                <button onclick="openModal('subComponentModal-{{ $component->id }}', 'modalBoxSub-{{ $component->id }}')" class="text-gray-300 hover:text-white transition bg-gray-700 px-3 py-1 rounded text-sm"><i class="fas fa-plus mr-1"></i> Sub-Komponen</button>
+                                
+                                <!-- Form Hapus Komponen Utama -->
+                                <form action="{{ route('dashboard.kelolatemplatelke.destroyComponent', $component->id) }}" method="POST" class="form-hapus">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn-hapus text-gray-400 hover:text-red-400 transition text-sm p-1" data-nama="Komponen {{ $component->name }} (Semua data di bawahnya akan ikut terhapus!)">
+                                        <i class="fas fa-trash-alt"></i>
+                                        <span class="hidden">Hapus</span>
+                                    </button>
+                                </form>
+                            @endhasanyrole
                         </div>
                     </div>
 
                     @forelse($component->subComponents as $sub)
                         <!-- LEVEL 2: SUB-KOMPONEN -->
-                        <div class="bg-teal-50 px-6 py-3 border-b border-gray-200 flex justify-between items-center pl-12">
+                        <div class="bg-teal-50 px-6 py-3 border-b border-gray-200 flex justify-between items-center pl-12 group/sub">
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-bold text-accent">{{ $sub->code }}</span>
                                 <h4 class="text-sm font-semibold text-gray-800">{{ $sub->name }}</h4>
                             </div>
-                            <div class="flex gap-3 text-sm">
-                                <button onclick="openModal('kriteriaModal-{{ $sub->id }}', 'modalBoxKriteria-{{ $sub->id }}')" class="text-maroon font-semibold hover:underline transition"><i class="fas fa-plus text-xs"></i> Tambah Kriteria</button>
+                            <div class="flex items-center gap-4 text-sm">
+                                @hasanyrole('super_admin|admin|inspektorat')
+                                    <button onclick="openModal('kriteriaModal-{{ $sub->id }}', 'modalBoxKriteria-{{ $sub->id }}')" class="text-maroon font-semibold hover:underline transition"><i class="fas fa-plus text-xs"></i> Tambah Kriteria</button>
+                                    
+                                    <!-- Form Hapus Sub-Komponen -->
+                                    <form action="{{ route('dashboard.kelolatemplatelke.destroySubComponent', $sub->id) }}" method="POST" class="form-hapus">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn-hapus text-gray-400 hover:text-red-500 transition" data-nama="Sub-Komponen {{ $sub->code }}">
+                                            <i class="fas fa-trash-alt"></i>
+                                            <span class="hidden">Hapus</span>
+                                        </button>
+                                    </form>
+                                @endhasanyrole
                             </div>
                         </div>
 
@@ -82,7 +99,17 @@
                                         </div>
                                     </div>
                                     <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button class="p-2 text-gray-400 hover:text-red-500 bg-white rounded shadow-sm border border-gray-200"><i class="fas fa-trash-alt"></i></button>
+                                        @hasanyrole('super_admin|admin|inspektorat')
+                                            <!-- Form Hapus Kriteria -->
+                                            <form action="{{ route('dashboard.kelolatemplatelke.destroyCriteria', $criteria->id) }}" method="POST" class="form-hapus">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="btn-hapus p-2 text-gray-400 hover:text-red-500 bg-white rounded shadow-sm border border-gray-200 transition" data-nama="Kriteria Nomor {{ $criteria->criteria_number }}">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    <span class="hidden">Hapus</span>
+                                                </button>
+                                            </form>
+                                        @endhasanyrole
                                     </div>
                                 </div>
                             @empty
@@ -90,18 +117,16 @@
                             @endforelse
                         </div>
 
-                        <!-- MODAL TAMBAH KRITERIA (Dinamis per Sub-Komponen) -->
+                        <!-- MODAL TAMBAH KRITERIA -->
                         <div id="kriteriaModal-{{ $sub->id }}" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
                             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxKriteria-{{ $sub->id }}">
                                 <form action="{{ route('dashboard.kelolatemplatelke.storeCriteria') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="lke_sub_component_id" value="{{ $sub->id }}">
-                                    
                                     <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
                                         <h3 class="text-lg font-bold text-gray-800"><i class="fas fa-layer-group text-accent mr-2"></i> Tambah Kriteria Baru</h3>
                                         <button type="button" onclick="closeModal('kriteriaModal-{{ $sub->id }}', 'modalBoxKriteria-{{ $sub->id }}')" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-times text-xl"></i></button>
                                     </div>
-
                                     <div class="p-6 space-y-4">
                                         <div class="bg-teal-50 text-accent text-xs font-semibold px-4 py-2 rounded-lg border border-teal-100 mb-4">
                                             Induk: {{ $component->component_number }}. {{ $component->name }} > {{ $sub->code }} {{ $sub->name }}
@@ -119,7 +144,6 @@
                                             <textarea name="expected_evidence" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-accent text-sm"></textarea>
                                         </div>
                                     </div>
-
                                     <div class="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50">
                                         <button type="button" onclick="closeModal('kriteriaModal-{{ $sub->id }}', 'modalBoxKriteria-{{ $sub->id }}')" class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-200 transition">Batal</button>
                                         <button type="submit" class="bg-accent hover:bg-teal-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition shadow-md">Simpan Kriteria</button>
@@ -131,7 +155,7 @@
                         <div class="px-6 py-4 pl-12 text-sm text-gray-400 italic bg-white">Belum ada sub-komponen.</div>
                     @endforelse
 
-                    <!-- MODAL TAMBAH SUB-KOMPONEN (Dinamis per Komponen) -->
+                    <!-- MODAL TAMBAH SUB-KOMPONEN -->
                     <div id="subComponentModal-{{ $component->id }}" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
                         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxSub-{{ $component->id }}">
                             <form action="{{ route('dashboard.kelolatemplatelke.storeSubComponent') }}" method="POST">
@@ -164,7 +188,6 @@
                             </form>
                         </div>
                     </div>
-
                 @empty
                     <div class="p-8 text-center text-gray-500 italic">Belum ada komponen LKE terdaftar. Silakan tambah komponen utama.</div>
                 @endforelse
@@ -172,7 +195,7 @@
             </div>
         </main>
         
-        <!-- MODAL TAMBAH KOMPONEN UTAMA (Statis, letaknya di luar looping) -->
+        <!-- MODAL TAMBAH KOMPONEN UTAMA -->
         <div id="componentModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex justify-center items-center backdrop-blur-sm transition-opacity duration-300">
             <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform scale-95 transition-transform duration-300" id="modalBoxComponent">
                 <form action="{{ route('dashboard.kelolatemplatelke.storeComponent') }}" method="POST">
@@ -206,8 +229,56 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT UNTUK MODAL -->
+    <!-- SCRIPT SWEETALERT2 & MODAL -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        // INTEGRASI SWEETALERT2 UNTUK PROSES HAPUS
+        document.addEventListener('DOMContentLoaded', function () {
+            const tombolHapus = document.querySelectorAll('.btn-hapus');
+            
+            tombolHapus.forEach(button => {
+                button.addEventListener('click', function () {
+                    const form = this.closest('form');
+                    const namaData = this.getAttribute('data-nama');
+
+                    Swal.fire({
+                        title: 'Apakah Anda Yakin?',
+                        text: `Anda akan menghapus ${namaData}. Tindakan ini tidak dapat dibatalkan!`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#800000', // Warna Maroon khas AKSEL
+                        cancelButtonColor: '#6b7280', // Gray
+                        confirmButtonText: 'Ya, Hapus Sekarang!',
+                        cancelButtonText: 'Batal',
+                        background: '#ffffff',
+                        customClass: {
+                            popup: 'rounded-2xl shadow-xl'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Eksekusi form form-hapus jika user klik Ya
+                        }
+                    });
+                });
+            });
+        });
+
+        // NOTIFIKASI SUKSES DENGAN TOAST SWEETALERT (OPSIONAL NAMUN SANGAT BAGUS)
+        @if(session('success'))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 4000,
+                timerProgressBar: true,
+            });
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('success') }}"
+            });
+        @endif
+
+        // MODAL TOGGLE SYSTEM
         function openModal(modalId, boxId) {
             const modal = document.getElementById(modalId);
             const modalBox = document.getElementById(boxId);
