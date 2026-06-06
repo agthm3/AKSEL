@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('final_score', 5, 2)->default(0); // Hasil perhitungan rumus paten excel
             
             // Kolom Pemeriksaan Inspektorat
-            $table->enum('status', ['menunggu', 'disetujui', 'revisi'])->default('menunggu');
+            $table->enum('status', ['menunggu', 'submitted', 'disetujui', 'revisi'])->default('menunggu');
             $table->text('inspector_notes')->nullable(); // Catatan perbaikan dari inspektorat
             
             $table->year('evaluation_year'); // Tahun evaluasi LKE (misal: 2026)

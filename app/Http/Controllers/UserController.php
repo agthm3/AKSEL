@@ -4,34 +4,26 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Institution;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    // Menampilkan halaman Manajemen Pengguna
     public function index()
     {
-        // Ambil semua user beserta instansi asal, instansi binaan, dan rolenya
         $users = User::with(['originInstitution', 'binaanInstitutions', 'roles'])->get();
-        
-        // Ambil semua instansi yang statusnya aktif untuk ditampilkan di modal Assign
         $institutions = Institution::where('status', 'aktif')->get();
 
-        // Nanti kirim ke view blade Anda
         return view('dashboard.manajemenpengguna.index', compact('users', 'institutions'));
     }
 
-    // Fungsi canggih untuk Menyimpan Assign Dinas (Lewat Pop-up Modal)
     public function assignDinas(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
-        // Pastikan yang di-assign hanya yang punya role operator_inspektorat
         if (!$user->hasRole('operator_inspektorat')) {
             return back()->with('error', 'Hanya Operator Inspektorat yang bisa diberi instansi binaan.');
         }
 
-        // Fitur canggih Laravel 'sync': 
-        // Otomatis menghapus assign lama dan memasukkan assign baru sesuai checkbox di Modal
         $user->binaanInstitutions()->sync($request->input('institution_ids', []));
 
         return back()->with('success', 'Penugasan instansi binaan berhasil diperbarui!');
@@ -39,26 +31,70 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|string',
             'institution_id' => 'required|exists:institutions,id',
-            // Default password untuk user baru adalah 'password123' (Bisa diubah nanti)
         ]);
 
-        // Simpan data ke tabel users
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt('password123'),
+            'password' => bcrypt('password123'), // Password default
             'institution_id' => $request->institution_id,
         ]);
 
-        // Berikan role menggunakan Spatie
         $user->assignRole($request->role);
 
         return back()->with('success', 'Pengguna baru berhasil ditambahkan! Password default: password123');
+    }
+
+    // FUNGSI BARU: EDIT PENGGUNA
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'institution_id' => 'required|exists:institutions,id',
+        ];
+
+        // Jika yang login adalah super_admin, validasi input role-nya juga
+        if (Auth::user()->hasRole('super_admin')) {
+            $rules['role'] = 'required|string';
+        }
+
+        $request->validate($rules);
+
+        // Update data dasar
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'institution_id' => $request->institution_id,
+        ]);
+
+        // Sync role HANYA jika yang mengubah adalah super_admin
+        if (Auth::user()->hasRole('super_admin')) {
+            $user->syncRoles([$request->role]);
+        }
+
+        return back()->with('success', 'Data pengguna berhasil diperbarui!');
+    }
+
+    // FUNGSI BARU: HAPUS PENGGUNA
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Proteksi: Tidak boleh menghapus diri sendiri
+        if ($user->id === Auth::id()) {
+            return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri!');
+        }
+
+        $user->delete();
+
+        return back()->with('success', 'Akun pengguna berhasil dihapus dari sistem!');
     }
 }

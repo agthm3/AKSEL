@@ -88,4 +88,20 @@ class TemplateLkeController extends Controller
 
         return back()->with('success', 'Sub-komponen beserta seluruh kriteria di bawahnya berhasil dihapus!');
     }
+
+    public function updateDeadline(Request $request)
+    {
+        $request->validate([
+            'deadline_date' => 'required|date|after:now',
+        ]);
+
+        \DB::table('app_settings')
+            ->where('key', 'lke_deadline')
+            ->update([
+                'value' => $request->deadline_date,
+                'updated_at' => now()
+            ]);
+
+        return back()->with('success', 'Batas waktu pengerjaan LKE berhasil diperbarui!');
+    }
 }

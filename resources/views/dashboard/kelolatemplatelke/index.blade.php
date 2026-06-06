@@ -29,6 +29,14 @@
                             <i class="fas fa-plus-circle"></i> Tambah Komponen Utama
                         </button>
                     @endhasanyrole
+                    @hasanyrole('super_admin|admin')
+                        <form action="{{ route('dashboard.kelolatemplatelke.updateDeadline') }}" method="POST" class="flex items-center gap-2 border border-gray-300 rounded-lg p-1 bg-white">
+                            @csrf
+                            <span class="text-xs text-gray-500 font-bold pl-2"><i class="fas fa-calendar-alt"></i> Batas Waktu LKE:</span>
+                            <input type="datetime-local" name="deadline_date" required class="text-xs border-0 focus:ring-0 text-gray-700 bg-transparent py-1">
+                            <button type="submit" class="bg-accent hover:bg-teal-700 text-white text-xs px-3 py-1.5 font-bold rounded-md shadow-sm transition">Set</button>
+                        </form>
+                    @endhasanyrole
                 </div>
             </div>
 

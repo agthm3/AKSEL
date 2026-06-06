@@ -21,8 +21,7 @@ class RekapitulasiController extends Controller
         $components = LkeComponent::orderBy('component_number')->get();
 
         // 3. Ambil seluruh data evaluasi yang SUDAH DISETUJUI oleh Inspektorat
-        // Jika Anda ingin menampilkan yang sedang proses juga, hapus: ->where('status', 'disetujui')
-        $allEvaluations = LkeEvaluation::with('criteria.subComponent.component')
+        $allEvaluations = LkeEvaluation::with('criteria.subComponent')
             ->where('evaluation_year', $year)
             ->where('status', 'disetujui')
             ->get()
@@ -37,19 +36,19 @@ class RekapitulasiController extends Controller
         foreach ($institutions as $inst) {
             $evals = $allEvaluations->get($inst->id);
             
-            if ($evals) {
+            if ($evals && $evals->count() > 0) {
                 $instansiSelesai++;
                 $totalScore = $evals->sum('final_score');
                 $totalKotaScore += $totalScore;
 
                 // Tentukan Predikat
                 $predikat = 'D';
-                if ($totalScore > 90) $predikat = 'AA';
-                elseif ($totalScore > 80) $predikat = 'A';
-                elseif ($totalScore > 70) $predikat = 'BB';
-                elseif ($totalScore > 60) $predikat = 'B';
-                elseif ($totalScore > 50) $predikat = 'CC';
-                elseif ($totalScore > 30) $predikat = 'C';
+                if ($totalScore >= 90) $predikat = 'AA';
+                elseif ($totalScore >= 80) $predikat = 'A';
+                elseif ($totalScore >= 70) $predikat = 'BB';
+                elseif ($totalScore >= 60) $predikat = 'B';
+                elseif ($totalScore >= 50) $predikat = 'CC';
+                elseif ($totalScore >= 30) $predikat = 'C';
                 
                 $predikatCounts[$predikat]++;
 
@@ -96,12 +95,12 @@ class RekapitulasiController extends Controller
         $rataRataKota = $instansiSelesai > 0 ? ($totalKotaScore / $instansiSelesai) : 0;
         
         $rataRataPredikat = 'D';
-        if ($rataRataKota > 90) $rataRataPredikat = 'AA';
-        elseif ($rataRataKota > 80) $rataRataPredikat = 'A';
-        elseif ($rataRataKota > 70) $rataRataPredikat = 'BB';
-        elseif ($rataRataKota > 60) $rataRataPredikat = 'B';
-        elseif ($rataRataKota > 50) $rataRataPredikat = 'CC';
-        elseif ($rataRataKota > 30) $rataRataPredikat = 'C';
+        if ($rataRataKota >= 90) $rataRataPredikat = 'AA';
+        elseif ($rataRataKota >= 80) $rataRataPredikat = 'A';
+        elseif ($rataRataKota >= 70) $rataRataPredikat = 'BB';
+        elseif ($rataRataKota >= 60) $rataRataPredikat = 'B';
+        elseif ($rataRataKota >= 50) $rataRataPredikat = 'CC';
+        elseif ($rataRataKota >= 30) $rataRataPredikat = 'C';
 
         $progressPersen = $totalInstitutions > 0 ? round(($instansiSelesai / $totalInstitutions) * 100) : 0;
 

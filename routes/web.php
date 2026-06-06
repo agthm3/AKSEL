@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/manajemenpengguna', [UserController::class, 'index'])->name('dashboard.manajemenpengguna.index');
     Route::post('/dashboard/manajemenpengguna/{id}/assign', [UserController::class, 'assignDinas'])->name('dashboard.manajemenpengguna.assign');
     Route::post('/dashboard/manajemenpengguna/store', [UserController::class, 'store'])->name('dashboard.manajemenpengguna.store');
+    Route::put('/dashboard/manajemenpengguna/{id}', [UserController::class, 'update'])->name('dashboard.manajemenpengguna.update');
+    Route::delete('/dashboard/manajemenpengguna/{id}', [UserController::class, 'destroy'])->name('dashboard.manajemenpengguna.destroy');
 
     // Master Instansi
     Route::get('/dashboard/masterinstansi', [InstitutionController::class, 'index'])->name('dashboard.masterinstansi.index');
@@ -75,6 +77,13 @@ Route::middleware(['auth'])->group(function () {
         ->name('dashboard.rekapitulasinilaiakhir.index');
     });
 
+    // Rute Ajukan LKE Dinas ke Inspektorat
+    Route::post('/dashboard/isipenilaianlke/submit', [IsiPenilaianController::class, 'submitToInspektorat'])->name('dashboard.isipenilaianlke.submit');
+
+    // Rute Pengaturan Batas Waktu (Hanya Hak Akses Super Admin / Admin)
+    Route::middleware(['role:super_admin|admin'])->group(function () {
+        Route::post('/dashboard/kelolatemplatelke/deadline', [TemplateLkeController::class, 'updateDeadline'])->name('dashboard.kelolatemplatelke.updateDeadline');
+    });
 });
 
 
